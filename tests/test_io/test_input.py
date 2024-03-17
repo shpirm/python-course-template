@@ -7,29 +7,41 @@ class TestInput(unittest.TestCase):
 
     def test_read_from_file_builtin(self):
         expected = "Test text"
-        with open(TestInput.data_source + "test.txt", "w") as file:
+        test_filename = TestInput.data_source + "test.txt"
+
+        with open(test_filename, "w") as file:
             file.write(expected)
-        result = read_from_file_builtin(TestInput.data_source + "test.txt")
+        result = read_from_file_builtin(test_filename)
+
         self.assertEqual(result, expected)
 
     def test_read_from_file_pandas(self):
         expected = "Test text"
-        with open(TestInput.data_source + "test.csv", "w") as file:
+        test_filename = TestInput.data_source + "test.csv"
+
+        with open(test_filename, "w") as file:
             file.write(expected)
-        result = read_from_file_pandas(TestInput.data_source + "test.csv")
+        result = read_from_file_pandas(test_filename)
+
         self.assertEqual(result.strip(), expected)
 
     def test_read_from_file_builtin_empty(self):
-        with open(TestInput.data_source + "test_empty.txt", "w") as file:
+        test_filename = TestInput.data_source + "test_empty.txt"
+
+        with open(test_filename, "w") as file:
             file.write("")
-        result = read_from_file_builtin(TestInput.data_source + "test_empty.txt")
+        result = read_from_file_builtin(test_filename)
+
         self.assertEqual(result, "")
 
     def test_read_from_file_pandas_empty_csv(self):
-        with open(TestInput.data_source + "test_empty.csv", "w") as file:
+        test_filename = TestInput.data_source + "test_empty.csv"
+
+        with open(test_filename, "w") as file:
             file.write("")
         try:
-            result = read_from_file_pandas(TestInput.data_source + "test_empty.csv")
+            result = read_from_file_pandas(test_filename)
             self.assertEqual(result.strip(), "")
-        except pd.errors.EmptyDataError:
+
+        except pd.errors.EmptyDataError: # Немає стовпців = обробка помилки
             self.assertTrue(True)

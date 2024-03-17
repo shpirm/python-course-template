@@ -6,9 +6,11 @@ class TestOutput(unittest.TestCase):
 
     def test_write_to_file_builtin(self):
         expected = "Test text"
-        write_to_file_builtin(TestOutput.data_source + "test_output.txt", expected)
+        test_filename = TestOutput.data_source + "test_output.txt"
 
-        with open(TestOutput.data_source + "test_output.txt", "r") as file:
+        write_to_file_builtin(test_filename, expected)
+
+        with open(test_filename, "r") as file:
             content = file.read()
 
         self.assertEqual(content, expected + "\n")
