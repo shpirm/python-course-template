@@ -17,3 +17,9 @@ class TestInput(unittest.TestCase):
             file.write(expected)
         result = read_from_file_pandas(TestInput.data_source + "test.csv")
         self.assertEqual(result.strip(), expected)
+
+    def test_read_from_file_builtin_empty(self):
+        with open(TestInput.data_source + "test_empty.txt", "w") as file:
+            file.write("")
+        result = read_from_file_builtin(TestInput.data_source + "test_empty.txt")
+        self.assertEqual(result, "")
