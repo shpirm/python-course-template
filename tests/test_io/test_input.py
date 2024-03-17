@@ -45,3 +45,12 @@ class TestInput(unittest.TestCase):
 
         except pd.errors.EmptyDataError: # Немає стовпців = обробка помилки
             self.assertTrue(True)
+
+    def test_read_from_file_builtin_nonexistent(self):
+        with self.assertRaises(FileNotFoundError):
+            read_from_file_builtin(TestInput.data_source + "nonexistent.txt")
+
+    def test_read_from_file_pandas_nonexistent(self):
+        with self.assertRaises(FileNotFoundError):
+            read_from_file_pandas(TestInput.data_source + "nonexistent.csv")
+
