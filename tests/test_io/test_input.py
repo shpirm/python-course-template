@@ -1,4 +1,5 @@
 import unittest
+import pandas as pd
 from app.io.input import read_from_file_builtin, read_from_file_pandas
 
 class TestInput(unittest.TestCase):
@@ -23,3 +24,12 @@ class TestInput(unittest.TestCase):
             file.write("")
         result = read_from_file_builtin(TestInput.data_source + "test_empty.txt")
         self.assertEqual(result, "")
+
+    def test_read_from_file_pandas_empty_csv(self):
+        with open(TestInput.data_source + "test_empty.csv", "w") as file:
+            file.write("")
+        try:
+            result = read_from_file_pandas(TestInput.data_source + "test_empty.csv")
+            self.assertEqual(result.strip(), "")
+        except pd.errors.EmptyDataError:
+            self.assertTrue(True)
